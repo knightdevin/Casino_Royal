@@ -15,7 +15,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min //The maximum is exclusive and the minimum is inclusive}
 }
 
-export default class PlayingTable extends Component {
+export default class GameRoom extends Component {
   constructor() {
     super()
     this.getRandomCards = this.getRandomCards.bind(this)
