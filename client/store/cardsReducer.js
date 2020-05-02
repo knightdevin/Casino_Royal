@@ -42,21 +42,24 @@ export default function cardsReducer(state = initialState, action) {
   }
 }
 
-const Card = db.define('card', {
-  suit: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      isIn: [['spades', 'hearts', 'clubs', 'diamonds']]
-    }
-  },
-  value: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      isIn: [['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']]
-    }
-  }
-})
+// --------------------------------------------------------------------------------------------------------------------
+// === BELOW IS FROM ORIGINAL IDEA OF CARD MODEL (BROUGHT IN FROM DB AS REFERENCE NOW THAT MODEL HAS BEEN DELETED) ===
+// --------------------------------------------------------------------------------------------------------------------
+// const Card = db.define('card', {
+//   suit: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     validate: {
+//       isIn: [['spades', 'hearts', 'clubs', 'diamonds']]
+//     }
+//   },
+//   value: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     validate: {
+//       isIn: [['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']]
+//     }
+//   }
+// })
 
-module.exports = Card
+// module.exports = Card

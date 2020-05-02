@@ -103,6 +103,7 @@
 
 body {
   font-family: sans-serif;
+  background-color: rgba(78, 117, 216, 0.324);
 }
 
 a {
@@ -123,6 +124,34 @@ form div {
   display: inline-block;
 }
 
+.navBar-Main {
+  box-shadow: 0px 10px 12px 0px rgb(0, 0, 0);
+  display: flex;
+  font-family: Didot, serif;
+  background-color: #141317;
+  color: white;
+  justify-content: space-between;
+  height: 55px;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 100px;
+  z-index: 2;
+}
+
+.navBar {
+  display: flex;
+  font-size: 12px;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* this makes link the same color as the selected font color  */
+a {
+  color: inherit;
+}
+
 .welcomePhoto {
   width: 100%;
   height: 625px;
@@ -140,20 +169,47 @@ form div {
 /* Centered text */
 .centerText {
   text-shadow: 3px 3px rgb(0, 0, 0);
-  font-family: Marker Felt;
+  font-family: Apple Chancery, cursive;
   font-size: 35px;
   position: absolute;
-  top: 28%;
-  left: 50%;
+  top: 20%;
+  left: 27%;
   transform: translate(-50%, -50%);
 }
 
 /* Additional text to lower right */
 .lowerRightText {
-  font-family: Marker Felt;
+  font-family: Apple Chancery, cursive;
   text-shadow: 2px 2px rgb(0, 0, 0);
-  font-size: 18px;
+  font-size: 25px;
   position: absolute;
-  bottom: 160px;
-  right: 160px;
+  bottom: 40px;
+  right: 140px;
+}
+
+/* Container holding the gamePlay photo and the dealer-player boxes */
+.gamePhotoContainer {
+  display: flex;
+  text-align: center;
+  color: white;
+  z-index: -1;
+}
+
+.gamePhoto {
+  width: 100%;
+  height: 100%;
+}
+
+/* dealer-player boxes */
+.dealerPlayerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-shadow: 3px 3px rgb(0, 0, 0);
+  font-family: Apple Chancery, cursive;
+  font-size: 35px;
+  position: absolute;
+  top: 20%;
+  left: 27%;
+  transform: translate(-50%, -50%);
 }

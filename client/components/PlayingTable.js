@@ -49,14 +49,23 @@ export default class PlayingTable extends Component {
 
   render() {
     return (
-      <div>
-        <div id="dealer">
-          DEALER INFO
-          {/* will display dealer's cards} */}
-        </div>
-        <div id="player">
-          PLAYER INFO
-          {/* will display player's cards} */}
+      <div className="gamePlay">
+        <div className="gamePhotoContainer">
+          <img
+            src="https://i.pinimg.com/originals/0e/5d/2f/0e5d2ff260608a2bca1c0278871cc903.jpg"
+            className="gamePhoto"
+          />
+
+          <div className="dealerPlayerContainer">
+            <div id="dealer" style={{paddingRight: '50px'}}>
+              DEALER INFO
+              {/* will display dealer's cards} */}
+            </div>
+            <div id="player" style={{paddingLeft: '50px'}}>
+              PLAYER INFO
+              {/* will display player's cards} */}
+            </div>
+          </div>
         </div>
       </div>
     )

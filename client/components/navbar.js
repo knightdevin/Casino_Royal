@@ -5,8 +5,16 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>Casino Royale</h1>
+  <div className="navBar-Main">
+    <div className="navBar" style={{fontSize: '20px'}}>
+      <Link to="/" style={{margin: '30px'}} className="navLink">
+        Casino Royale
+      </Link>
+      <Link to="/blackJack" className="navLink">
+        Black Jack
+      </Link>
+    </div>
+
     <nav />
     <hr />
   </div>
