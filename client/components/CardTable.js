@@ -54,6 +54,8 @@ export default class CardTable extends Component {
     this.shuffle = this.shuffle.bind(this)
     this.startBlackJack = this.startBlackJack.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.dealHands = this.dealHands.bind(this)
+    this.getPoints = this.getPoints.bind(this)
   }
 
   createDeck() {
@@ -64,7 +66,8 @@ export default class CardTable extends Component {
         if (values[i] === 'J' || values[i] === 'Q' || values[i] === 'K')
           weight = 10
         if (values[i] === 'A') weight = 11
-        let card = {Value: values[i], Suit: suits[x], Weight: weight}
+        // create each card with the suit, a string of value and integer version of the value (var is needed to navigate scoping issues)
+        var card = {Value: values[i], Suit: suits[x], Weight: weight}
         deck.push(card)
       }
     }
@@ -106,7 +109,7 @@ export default class CardTable extends Component {
     this.shuffle()
     this.createPlayers(2)
     // this.createPlayersUI()
-    // this.dealHands()
+    this.dealHands()
     // document.getElementById('player_' + currentPlayer).classList.add('active')
     console.log('METHOD invoked for new blackJack')
     console.log('newDeck created USING METHOD: ', deck)
@@ -119,31 +122,31 @@ export default class CardTable extends Component {
     }
   }
 
-  // dealHands() {
-  //   // alternate handing cards to each player
-  //   // 2 cards each
-  //   for (let i = 0; i < 2; i++) {
-  //     for (let x = 0; x < players.length; x++) {
-  //       let card = deck.pop()
+  dealHands() {
+    // alternate handing cards to each player
+    // 2 cards each
+    for (let i = 0; i < 2; i++) {
+      for (let x = 0; x < players.length; x++) {
+        let card = deck.pop()
 
-  //       this.setState({})
-  //       players[x].hand.push(card)
-  //       // this.renderCard(card, x)
-  //       this.updatePoints()
-  //     }
-  //   }
-  //   this.updateDeck()
-  // }
+        // this.setState({})
+        players[x].hand.push(card)
+        // this.renderCard(card, x)
+        // this.updatePoints()
+      }
+      return players
+    }
+  }
 
-  // // returns the number of points that a player has in hand
-  // getPoints(player) {
-  //   let points = 0
-  //   for (let i = 0; i < players[player].hand.length; i++) {
-  //     points += players[player].hand[i].Weight
-  //   }
-  //   players[player].Points = points
-  //   return points
-  // }
+  // returns the number of points that a player has in hand
+  getPoints(player) {
+    let points = 0
+    for (let i = 0; i < players[player].hand.length; i++) {
+      points += players[player].hand[i].Weight
+    }
+    players[player].Points = points
+    return points
+  }
 
   // updatePoints() {
   //   for (let i = 0; i < players.length; i++) {
@@ -243,10 +246,6 @@ export default class CardTable extends Component {
   //   }
   // }
 
-  // updateDeck() {
-  //   // document.getElementById('deckcount').innerHTML = deck.length
-  // }
-
   render() {
     // console.log('this.props >>>>>', this.props)
     // console.log('this.state >>>>>', this.state)
@@ -273,7 +272,9 @@ export default class CardTable extends Component {
             <input type="button" className="btn" />
           </div>
           <div className="deck">
-            <div className="deckcount" />
+            <div className="points" style={{textShadow: 'none'}}>
+              {deck.length}
+            </div>
           </div>
           <div className="players">
             {Array.isArray(players) &&
@@ -283,7 +284,22 @@ export default class CardTable extends Component {
                   // <div key={playerObj.id} className="playerCards">
                   <div key={playerObj.id} className="player">
                     <div>{playerObj.name}</div>
-                    <div className="card">{playerObj.hand}</div>
+
+                    <div
+                      key={playerObj.hand}
+                      className={`hand_${playerObj.id}`}
+                    >
+                      {Array.isArray(playerObj.hand) &&
+                        playerObj.hand.length &&
+                        playerObj.hand.map(singleCard => {
+                          return (
+                            <div key={playerObj.id} className="card">
+                              <ul>{singleCard.Value}</ul>
+                              <i>{singleCard.Suit}</i>
+                            </div>
+                          )
+                        })}
+                    </div>
                     <div className="points">{playerObj.points}</div>
                   </div>
                 )
