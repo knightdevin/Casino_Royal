@@ -56,6 +56,7 @@ export default class CardTable extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.dealHands = this.dealHands.bind(this)
     this.getPoints = this.getPoints.bind(this)
+    this.updatePoints = this.updatePoints.bind(this)
   }
 
   createDeck() {
@@ -66,7 +67,7 @@ export default class CardTable extends Component {
         if (values[i] === 'J' || values[i] === 'Q' || values[i] === 'K')
           weight = 10
         if (values[i] === 'A') weight = 11
-        // create each card with the suit, a string of value and integer version of the value (var is needed to navigate scoping issues)
+        // create each card with the suit, a string of value and integer version of the value (using var to navigate scoping issues)
         var card = {Value: values[i], Suit: suits[x], Weight: weight}
         deck.push(card)
       }
@@ -132,7 +133,7 @@ export default class CardTable extends Component {
         // this.setState({})
         players[x].hand.push(card)
         // this.renderCard(card, x)
-        // this.updatePoints()
+        this.updatePoints()
       }
       return players
     }
@@ -140,20 +141,28 @@ export default class CardTable extends Component {
 
   // returns the number of points that a player has in hand
   getPoints(player) {
-    let points = 0
-    for (let i = 0; i < players[player].hand.length; i++) {
-      points += players[player].hand[i].Weight
-    }
-    players[player].Points = points
-    return points
+    let totalPoints = 0
+    // iterate through the player's hand
+    players[player].hand.forEach(singleCard => {
+      // add the weight of each card to the points
+      totalPoints += singleCard.Weight
+    })
+
+    // for (let i = 0; i < players[player].hand.length; i++) {
+    //   points += players[player].hand[i].Weight
+    // }
+
+    // now reset the value of the player's points to the totalPoints
+    players[player].Points = totalPoints
+    return totalPoints
   }
 
-  // updatePoints() {
-  //   for (let i = 0; i < players.length; i++) {
-  //     this.getPoints(i)
-  //     // document.getElementById('points_' + i).innerHTML = players[i].Points
-  //   }
-  // }
+  updatePoints() {
+    for (let i = 0; i < players.length; i++) {
+      this.getPoints(i)
+      // document.getElementById('points_' + i).innerHTML = players[i].Points
+    }
+  }
 
   // hitMe() {
   //   // pop a card from the deck to the current player
@@ -247,20 +256,6 @@ export default class CardTable extends Component {
   // }
 
   render() {
-    // console.log('this.props >>>>>', this.props)
-    // console.log('this.state >>>>>', this.state)
-    // console.log('deck before method invoked', deck)
-    // console.log('createDeck invoked', this.createDeck())
-    // console.log('deck after method is invoked', deck)
-    // console.log('players before method', players)
-    // console.log('createPlayers invoked with 3 players', this.createPlayers(2))
-    // console.log('players AFTER method is invoked', players)
-    // console.log('deck before startBlackJack invoked', deck)
-    // console.log('players before startBlackJack invoked', players)
-    // console.log('invoking startBlackJack', this.startBlackJack())
-    // console.log('deck AFTER startBlackJack invoked', deck)
-    // console.log('players AFTER startBlackJack invoked', players)
-
     this.startBlackJack()
     return (
       // <div className="gameBoard">
@@ -300,7 +295,7 @@ export default class CardTable extends Component {
                           )
                         })}
                     </div>
-                    <div className="points">{playerObj.points}</div>
+                    <div className="points">Points: {playerObj.points}</div>
                   </div>
                 )
               })}
