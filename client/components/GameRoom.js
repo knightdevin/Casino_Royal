@@ -56,16 +56,7 @@ export default class GameRoom extends Component {
             src="https://i.pinimg.com/originals/0e/5d/2f/0e5d2ff260608a2bca1c0278871cc903.jpg"
             className="gamePhoto"
           />
-
           <div className="dealerPlayerContainer">
-            <div id="dealer" style={{paddingRight: '50px'}}>
-              DEALER INFO
-              {/* will display dealer's cards} */}
-            </div>
-            <div id="player" style={{paddingLeft: '50px'}}>
-              PLAYER INFO
-              {/* will display player's cards} */}
-            </div>
             <CardTable />
           </div>
         </div>

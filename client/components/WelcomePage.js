@@ -1,7 +1,23 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 export default class WelcomePage extends Component {
+  // static propTypes = {
+  //   onClick: PropTypes.func,
+  // }
+
+  // static defaultProps = {
+  //   onClick: () => {},
+  // }
+
+  // handleClick() {
+  //   history.push('/google.com')
+  // }
+
   render() {
+    console.log('this.props>>>>>', this.props)
+    console.log('history>>>', history)
+
     return (
       <div className="WelcomePage">
         <div className="welcomePhotoContainer">
@@ -17,6 +33,13 @@ export default class WelcomePage extends Component {
           </div>
           <div className="lowerRightText">
             <h4>Where tomorrow's zillionaires are made!</h4>
+            {/* <button
+              type="button"
+              onClick={handleClick}
+              className="enterCasinoButton"
+            >
+              Enter Casino
+            </button> */}
           </div>
         </div>
         <div className="landingPageContent">

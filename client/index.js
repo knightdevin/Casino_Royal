@@ -20,20 +20,20 @@ ReactDOM.render(
 
 // function createPlayers(num) {
 //   players = new Array()
-//   for (var i = 1; i <= num; i++) {
-//     var hand = new Array()
-//     var player = {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand}
+//   for (let i = 1; i <= num; i++) {
+//     let hand = new Array()
+//     let player = {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand}
 //     players.push(player)
 //   }
 // }
 
 // function createPlayersUI() {
 //   document.getElementById('players').innerHTML = ''
-//   for (var i = 0; i < players.length; i++) {
-//     var div_player = document.createElement('div')
-//     var div_playerid = document.createElement('div')
-//     var div_hand = document.createElement('div')
-//     var div_points = document.createElement('div')
+//   for (let i = 0; i < players.length; i++) {
+//     let div_player = document.createElement('div')
+//     let div_playerid = document.createElement('div')
+//     let div_hand = document.createElement('div')
+//     let div_points = document.createElement('div')
 
 //     div_points.className = 'points'
 //     div_points.id = 'points_' + i
@@ -52,10 +52,10 @@ ReactDOM.render(
 // function shuffle() {
 //   // for 1000 turns
 //   // switch the values of two random cards
-//   for (var i = 0; i < 1000; i++) {
-//     var location1 = Math.floor(Math.random() * deck.length)
-//     var location2 = Math.floor(Math.random() * deck.length)
-//     var tmp = deck[location1]
+//   for (let i = 0; i < 1000; i++) {
+//     let location1 = Math.floor(Math.random() * deck.length)
+//     let location2 = Math.floor(Math.random() * deck.length)
+//     let tmp = deck[location1]
 
 //     deck[location1] = deck[location2]
 //     deck[location2] = tmp
@@ -78,9 +78,9 @@ ReactDOM.render(
 // function dealHands() {
 //   // alternate handing cards to each player
 //   // 2 cards each
-//   for (var i = 0; i < 2; i++) {
-//     for (var x = 0; x < players.length; x++) {
-//       var card = deck.pop()
+//   for (let i = 0; i < 2; i++) {
+//     for (let x = 0; x < players.length; x++) {
+//       let card = deck.pop()
 //       players[x].Hand.push(card)
 //       renderCard(card, x)
 //       updatePoints()
@@ -91,13 +91,13 @@ ReactDOM.render(
 // }
 
 // function renderCard(card, player) {
-//   var hand = document.getElementById('hand_' + player)
+//   let hand = document.getElementById('hand_' + player)
 //   hand.appendChild(getCardUI(card))
 // }
 
 // function getCardUI(card) {
-//   var el = document.createElement('div')
-//   var icon = ''
+//   let el = document.createElement('div')
+//   let icon = ''
 //   if (card.Suit == 'Hearts') icon = '&hearts;'
 //   else if (card.Suit == 'Spades') icon = '&spades;'
 //   else if (card.Suit == 'Diamonds') icon = '&diams;'
@@ -110,8 +110,8 @@ ReactDOM.render(
 
 // // returns the number of points that a player has in hand
 // function getPoints(player) {
-//   var points = 0
-//   for (var i = 0; i < players[player].Hand.length; i++) {
+//   let points = 0
+//   for (let i = 0; i < players[player].Hand.length; i++) {
 //     points += players[player].Hand[i].Weight
 //   }
 //   players[player].Points = points
@@ -119,7 +119,7 @@ ReactDOM.render(
 // }
 
 // function updatePoints() {
-//   for (var i = 0; i < players.length; i++) {
+//   for (let i = 0; i < players.length; i++) {
 //     getPoints(i)
 //     document.getElementById('points_' + i).innerHTML = players[i].Points
 //   }
@@ -128,7 +128,7 @@ ReactDOM.render(
 // function hitMe() {
 //   // pop a card from the deck to the current player
 //   // check if current player new points are over 21
-//   var card = deck.pop()
+//   let card = deck.pop()
 //   players[currentPlayer].Hand.push(card)
 //   renderCard(card, currentPlayer)
 //   updatePoints()
@@ -150,10 +150,10 @@ ReactDOM.render(
 // }
 
 // function end() {
-//   var winner = -1
-//   var score = 0
+//   let winner = -1
+//   let score = 0
 
-//   for (var i = 0; i < players.length; i++) {
+//   for (let i = 0; i < players.length; i++) {
 //     if (players[i].Points > score && players[i].Points < 22) {
 //       winner = i
 //     }
