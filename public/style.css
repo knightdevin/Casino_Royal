@@ -1,11 +1,10 @@
-.game {
+.gameContainer {
   width: 720px;
-  border: solid 1px #ddd;
-  margin: 0 auto;
-  background: #3ac7fe;
-  border: solid 10px;
+  background: #01370cd4;
+  border: solid 3px;
   text-align: center;
   min-height: 430px;
+  margin-top: 160px;
 }
 
 .btn {
@@ -19,20 +18,20 @@
   background: dodgerblue;
 }
 
-.game h3 {
+.gameContainer h3 {
   padding: 10px;
   background: black;
   color: white;
 }
 
-.game .game-body {
+.gameContainer .game-body {
   padding: 20px;
 }
 
-.game .game-options {
+.gameContainer .game-options {
   text-align: center;
 }
-.game .card {
+.gameContainer .card {
   width: 50px;
   height: 80px;
   padding: 10px;
@@ -46,7 +45,7 @@
   border: solid 3px;
 }
 
-.game .status {
+.gameContainer .status {
   display: inline-block;
   background: gold;
   border: solid 5px white;
@@ -62,6 +61,12 @@
   margin: 0 auto;
   margin-top: 20px;
   text-align: center;
+}
+
+.playerCards {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.851);
 }
 
 .player {
@@ -209,24 +214,12 @@ a {
   font-family: Apple Chancery, cursive;
   font-size: 35px;
   position: absolute;
-  top: 20%;
-  left: 27%;
-  transform: translate(-50%, -50%);
-}
-
-.gameContainer {
-  bottom: 40px;
-  right: 140px;
+  top: 7%;
+  left: 26.5%;
 }
 
 .gameBoard {
   display: flex;
   flex-direction: column;
   width: 600px;
-}
-
-.playerCards {
-  display: flex;
-  flex-direction: row;
-  background-color: rgba(0, 0, 0, 0.851);
 }

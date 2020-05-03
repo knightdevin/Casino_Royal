@@ -52,6 +52,8 @@ export default class CardTable extends Component {
     this.createDeck = this.createDeck.bind(this)
     this.createPlayers = this.createPlayers.bind(this)
     this.shuffle = this.shuffle.bind(this)
+    this.startBlackJack = this.startBlackJack.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   createDeck() {
@@ -104,8 +106,17 @@ export default class CardTable extends Component {
     this.shuffle()
     this.createPlayers(2)
     // this.createPlayersUI()
-    this.dealHands()
+    // this.dealHands()
     // document.getElementById('player_' + currentPlayer).classList.add('active')
+    console.log('METHOD invoked for new blackJack')
+    console.log('newDeck created USING METHOD: ', deck)
+    console.log('newPlayers created USING METHOD: ', players)
+  }
+
+  handleClick(event) {
+    if (event.target) {
+      this.startBlackJack()
+    }
   }
 
   // dealHands() {
@@ -237,30 +248,50 @@ export default class CardTable extends Component {
   // }
 
   render() {
-    console.log('this.props >>>>>', this.props)
-    console.log('this.state >>>>>', this.state)
-    console.log('deck before method invoked', deck)
-    console.log('createDeck invoked', this.createDeck())
-    console.log('deck after method is invoked', deck)
-    console.log('players before method', players)
-    console.log('createPlayers invoked with 3 players', this.createPlayers(2))
-    console.log('players AFTER method is invoked', players)
+    // console.log('this.props >>>>>', this.props)
+    // console.log('this.state >>>>>', this.state)
+    // console.log('deck before method invoked', deck)
+    // console.log('createDeck invoked', this.createDeck())
+    // console.log('deck after method is invoked', deck)
+    // console.log('players before method', players)
+    // console.log('createPlayers invoked with 3 players', this.createPlayers(2))
+    // console.log('players AFTER method is invoked', players)
+    // console.log('deck before startBlackJack invoked', deck)
+    // console.log('players before startBlackJack invoked', players)
+    // console.log('invoking startBlackJack', this.startBlackJack())
+    // console.log('deck AFTER startBlackJack invoked', deck)
+    // console.log('players AFTER startBlackJack invoked', players)
 
+    this.startBlackJack()
     return (
+      // <div className="gameBoard">
       <div className="gameContainer">
-        <div className="gameBoard">
-          {Array.isArray(players) &&
-            players.length &&
-            players.map(playerObj => {
-              return (
-                <div key={playerObj.id} className="playerCards">
-                  <ul>{playerObj.name}</ul>
-                  <ul>{playerObj.points}</ul>
-                  <ul>{playerObj.hand}</ul>
-                </div>
-              )
-            })}
-          <button type="button">Deal New Hand</button>
+        <div className="game-body">
+          <div className="game-options">
+            <input type="button" className="btn" id="btnStart" />
+            <input type="button" className="btn" />
+            <input type="button" className="btn" />
+          </div>
+          <div className="deck">
+            <div className="deckcount" />
+          </div>
+          <div className="players">
+            {Array.isArray(players) &&
+              players.length &&
+              players.map(playerObj => {
+                return (
+                  // <div key={playerObj.id} className="playerCards">
+                  <div key={playerObj.id} className="player">
+                    <div>{playerObj.name}</div>
+                    <div className="card">{playerObj.hand}</div>
+                    <div className="points">{playerObj.points}</div>
+                  </div>
+                )
+              })}
+            <button type="button" onClick={this.handleClick}>
+              Deal New Hand
+            </button>
+          </div>
         </div>
       </div>
     )
