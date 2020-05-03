@@ -114,18 +114,18 @@ export default class CardTable extends Component {
     this.createDeck()
     this.shuffle()
     this.createPlayers(2)
-    this.createPlayersUI()
+    // this.createPlayersUI()
     this.dealHands()
-    document.getElementById('player_' + currentPlayer).classList.add('active')
+    // document.getElementById('player_' + currentPlayer).classList.add('active')
   }
 
   dealHands() {
     // alternate handing cards to each player
     // 2 cards each
-    for (var i = 0; i < 2; i++) {
-      for (var x = 0; x < players.length; x++) {
-        var card = deck.pop()
-        players[x].Hand.push(card)
+    for (let i = 0; i < 2; i++) {
+      for (let x = 0; x < players.length; x++) {
+        let card = deck.pop()
+        players[x].this.state.hand.push(card)
         this.renderCard(card, x)
         this.updatePoints()
       }
@@ -246,9 +246,18 @@ export default class CardTable extends Component {
   }
 
   render() {
+    console.log('this.props >>>>>', this.props)
+    console.log('this.state >>>>>', this.state)
+    const player = this.state
+
     return (
       <div>
         CARD TABLE WILL BE HERE!!!
+        <div className="playerContainer" />
+        {Array.isArray(players) &&
+          players.map(playerObj => {
+            return <div key={playerObj.id} className="playerContainer" />
+          })}
         <button type="button" onClick={() => this.startBlackJack()}>
           Deal New Hand
         </button>
