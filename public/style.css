@@ -213,3 +213,20 @@ a {
   left: 27%;
   transform: translate(-50%, -50%);
 }
+
+.gameContainer {
+  bottom: 40px;
+  right: 140px;
+}
+
+.gameBoard {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.playerCards {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.851);
+}

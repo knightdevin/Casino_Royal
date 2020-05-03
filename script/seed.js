@@ -12,6 +12,7 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  // create the deck of cards (based on using card model)
   const cards = await Promise.all([
     Card.create({suit: 'spades', value: 'A'}),
     Card.create({suit: 'hearts', value: 'A'}),
