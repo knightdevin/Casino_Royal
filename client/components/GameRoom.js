@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import CardTable from './CardTable'
 
 // needs on the table:
 // a player (and maybe the computer or 'dealer')
@@ -65,6 +66,7 @@ export default class GameRoom extends Component {
               PLAYER INFO
               {/* will display player's cards} */}
             </div>
+            <CardTable />
           </div>
         </div>
       </div>
