@@ -97,7 +97,7 @@ class CardTable extends React.Component {
     if (currentWager > this.state.markers) {
       this.setState({gameMessage: 'Insufficient funds.'})
     } else if (currentWager % 1 !== 0) {
-      this.setState({gameMessage: "Whole numbers only. We don't accept change"})
+      this.setState({gameMessage: "Whole numbers only. We don't accept that!"})
     } else {
       // Subtract the current bet from markers
       const markers = this.state.markers - currentWager
