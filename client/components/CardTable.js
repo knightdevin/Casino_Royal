@@ -8,7 +8,7 @@ class CardTable extends React.Component {
       deck: [],
       dealer: null,
       player: null,
-      markers: 0,
+      markers: 100,
       wagerValue: '',
       currentWager: null,
       gameOver: false,
@@ -17,32 +17,20 @@ class CardTable extends React.Component {
   }
 
   createDeck() {
+    // https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
     const cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
     const suits = ['♦', '♣', '♥', '♠']
-    const deck = []
+    // const deck = []
     for (let i = 0; i < cards.length; i++) {
       for (let j = 0; j < suits.length; j++) {
-        deck.push({number: cards[i], suit: suits[j]})
+        this.state.deck.push({number: cards[i], suit: suits[j]})
       }
     }
-    return deck
+    return this.state.deck
   }
 
-  // added shuffle method
-  shuffle() {
-    //  for 500 turns switch the values of two random cards
-    for (let i = 0; i < 500; i++) {
-      let location1 = Math.floor(Math.random() * this.deck.length)
-      let location2 = Math.floor(Math.random() * this.deck.length)
-      let tempDeck = this.deck[location1]
-
-      this.deck[location1] = this.deck[location2]
-      this.deck[location2] = tempDeck
-    }
-  }
-
-  dealMoreCards(deck) {
-    const playerCard1 = this.getRandomCard(deck)
+  dealMoreCards() {
+    const playerCard1 = this.getRandomCard(this.state.deck)
     const dealerCard1 = this.getRandomCard(playerCard1.updatedDeck)
     const playerCard2 = this.getRandomCard(dealerCard1.updatedDeck)
     const playerStartingHand = [playerCard1.randomCard, playerCard2.randomCard]
@@ -60,50 +48,46 @@ class CardTable extends React.Component {
     return {updatedDeck: playerCard2.updatedDeck, player, dealer}
   }
 
-  dealNewGame(type) {
-    // should our shuffle method go in here somewhere?
-    if (type === 'continue') {
-      if (this.state.markers > 0) {
-        const deck =
-          this.state.deck.length < 10 ? this.createDeck() : this.state.deck
-        const {updatedDeck, player, dealer} = this.dealMoreCards(deck)
-
-        this.setState({
-          deck: updatedDeck,
-          dealer,
-          player,
-          currentWager: null,
-          gameOver: false,
-          gameMessage: null
-        })
-      } else {
-        this.setState({
-          gameMessage:
-            "We're sorry, but you are now broke! Please come back again."
-        })
-      }
-    } else {
-      const deck = this.createDeck()
+  dealNewGame() {
+    if (this.state.markers > 0) {
+      const deck =
+        this.state.deck.length < 10 ? this.createDeck() : this.state.deck
       const {updatedDeck, player, dealer} = this.dealMoreCards(deck)
 
       this.setState({
         deck: updatedDeck,
         dealer,
         player,
-        markers: 100,
-        wagerValue: '',
         currentWager: null,
         gameOver: false,
         gameMessage: null
       })
+    } else {
+      this.setState({
+        gameMessage:
+          "We're sorry, but you are now broke! Please come back again."
+      })
     }
+
+    const deck = this.createDeck()
+    const {updatedDeck, player, dealer} = this.dealMoreCards(deck)
+
+    this.setState({
+      deck: updatedDeck,
+      dealer,
+      player,
+      wagerValue: '',
+      currentWager: null,
+      gameOver: false,
+      gameMessage: null
+    })
   }
 
   getRandomCard(deck) {
     const updatedDeck = deck
     const randomIndex = Math.floor(Math.random() * updatedDeck.length)
     const randomCard = updatedDeck[randomIndex]
-    updatedDeck.splice(randomIndex, 1)
+    updatedDeck.splice(randomIndex, 1) // this is where we update the deck by removing dealt cards
     return {randomCard, updatedDeck}
   }
 
@@ -115,7 +99,7 @@ class CardTable extends React.Component {
     } else if (currentWager % 1 !== 0) {
       this.setState({gameMessage: "Whole numbers only. We don't accept change"})
     } else {
-      // Deduct current bet from markers
+      // Subtract the current bet from markers
       const markers = this.state.markers - currentWager
       this.setState({markers, wagerValue: '', currentWager})
     }
@@ -209,6 +193,7 @@ class CardTable extends React.Component {
 
         if (winner === 'dealer') {
           gameMessage = 'Dealer sweeps the table...'
+          // markers -= this.state.currentWager
         } else if (winner === 'player') {
           markers += this.state.currentWager * 2
           gameMessage = 'You won!'
@@ -254,7 +239,7 @@ class CardTable extends React.Component {
 
   componentWillMount() {
     this.dealNewGame()
-    // Do we still need???
+    // Do we still need???  ->  this could be an onClick
     const body = document.querySelector('body')
     body.addEventListener('keydown', this.handleKeyDown.bind(this))
   }
@@ -278,7 +263,7 @@ class CardTable extends React.Component {
         <div className="game-body">
           <div>
             <div className="game-options">
-              <button
+              {/* <button
                 type="button"
                 className="btn"
                 onClick={() => {
@@ -286,7 +271,7 @@ class CardTable extends React.Component {
                 }}
               >
                 Deal New Hand
-              </button>
+              </button> */}
               <button
                 type="button"
                 className="btn"
@@ -343,24 +328,31 @@ class CardTable extends React.Component {
             ) : null}
             <p className="gameText">Your Hand ({this.state.player.count})</p>
             <table className="cards">
-              <tr>
-                {this.state.player.cards.map((card, i) => {
-                  return <Card key={i} number={card.number} suit={card.suit} />
-                })}
-              </tr>
+              <tbody>
+                <tr>
+                  {this.state.player.cards.map((card, i) => {
+                    return (
+                      <Card key={i} number={card.number} suit={card.suit} />
+                    )
+                  })}
+                </tr>
+              </tbody>
             </table>
 
             <p className="gameText">
               Dealer's Hand ({this.state.dealer.count})
             </p>
             <table className="cards">
-              <tr>
-                {this.state.dealer.cards.map((card, i) => {
-                  return <Card key={i} number={card.number} suit={card.suit} />
-                })}
-              </tr>
+              <tbody>
+                <tr>
+                  {this.state.dealer.cards.map((card, i) => {
+                    return (
+                      <Card key={i} number={card.number} suit={card.suit} />
+                    )
+                  })}
+                </tr>
+              </tbody>
             </table>
-
             <p>{this.state.gameMessage}</p>
           </div>
         </div>
